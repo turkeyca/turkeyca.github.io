@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    02/18/细说C指针/index |  Hexo
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  <link rel="stylesheet" href="/css/style.css">  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-02/18/细说C指针/index" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  02/18/细说C指针/index
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/11/28/02/18/%E7%BB%86%E8%AF%B4C%E6%8C%87%E9%92%88/index/" class="article-date">
+  <time datetime="2019-11-27T19:54:16.000Z" itemprop="datePublished">2019-11-28</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="baidu-site-verification" content="xBnycxSBL1">
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    细说C指针 |
+    
+    陈一一</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-细说C指针" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      细说C指针
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/02/18/细说C指针/" class="article-date">
+  <time datetime="2019-02-18T05:07:41.395Z" itemprop="datePublished">2019-02-18</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+  
+  	
+  	
+  	  <h1 id="细说C指针"><a href="#细说C指针" class="headerlink" title="细说C指针"></a>细说C指针</h1><blockquote>
+<p>不要做一个没有对象的野指针。           ——chenjunlin</p>
+</blockquote>
+<h3 id="1、指针的概念"><a href="#1、指针的概念" class="headerlink" title="1、指针的概念"></a>1、指针的概念</h3><p>C是一门古老而强大的语言, 之所以强大, 很大部分体现在其灵活的指针运用上。因此, 说指针是C语言的灵魂, 一点都不为过。<br>那么, 什么是指针? 先了解一下概念。</p>
+<p>与int、float、double等其他数据类型一样, 指针也是一种数据类型, 但这种数据类型所声明的变量—即指针变量, 是一种特殊的变量, 是专门用来存储内存地址的。<br>一个指针变量有两个属性: 地址值和指针类型。地址值用来标识指针所指向的变量的首地址; 指针类型告诉编译器, 应该以什么数据类型对指定的内存区域进行访问。</p>
+<h3 id="2、指针的声明"><a href="#2、指针的声明" class="headerlink" title="2、指针的声明"></a>2、指针的声明</h3><p>概念清楚了, 指针又是如何使用的呢?<br>就像其他变量或常量一样, 在使用指针之前, 必须先对其进行声明。<br>指针变量声明的一般形式为:</p>
+<pre><code>type *varName;
+</code></pre><p>type 是指针的基类型, 它必须是一个有效的 C 数据类型, 如 int、char等;<br>type <em> 就是这个指针变量的数据类型;<br>varName是指针变量的名称。<br>声明指针变量时, 如果没有确切的地址可以赋值, 为指针变量赋一个 NULL 值是一个良好的编程习惯。如: int </em>p = NULL;</p>
+<h4 id="2-1-关于空指针-NULL"><a href="#2-1-关于空指针-NULL" class="headerlink" title="2.1 关于空指针 NULL"></a>2.1 关于空指针 NULL</h4><p>上面说声明指针变量时, 如果暂时不能确定其指向,可以先赋值为NULL。关于NULL在这里做几点扩展:<br>NULL 是一个定义在标准库中的值为零的指针常量。赋为 NULL 的指针被称为空指针。</p>
+<pre><code>#define  NULL  ((void *)0)   // NULL的宏定义
+</code></pre><p>外层的括号是为了防止宏定义歧义; 里层的括号则是强制类型转换, 把0转换成void <em> 类型, 本来void </em> 型就是用来存放地址的, 那么这里的0自然就是地址0了。<br>空指针是有指向的指针, 但它指向的地址是很小的地址, 约定俗成为地址0x0, 是程序的起始, 这个地址不保存数据, 同时不允许程序访问。所以空指针不能操作该地址, 我们就理解为“指针指向了空, 无法操作了”。</p>
+<h4 id="2-2-关于无确定类型指针-void"><a href="#2-2-关于无确定类型指针-void" class="headerlink" title="2.2 关于无确定类型指针 void *"></a>2.2 关于无确定类型指针 void *</h4><p>那么NULL宏定义里面的void 型指针又是什么呢? 这个从“字面”上看起来更像空指针啊!<br>然而void * 型指针并不是空指针,这个类型的指针指向了实实在在的存放数据的地址, 但是该地址存放的数据的数据类型我们暂时不知道, 可以理解为无确定类型指针。void 类型可以通过类型转换强制转换为任何其它类型的指针。<br>我们通过动态内存分配的例子加以理解:</p>
+<pre><code>char *str = (char *)malloc(sizeof(char)*10); // 动态内存分配
+void *malloc(size_t __size); // 函数库中malloc函数的声明
+</code></pre><p>malloc的全称是memory allocation, 中文叫动态内存分配, 用于申请一块连续的指定大小的内存块区域, 它以void *类型返回分配的内存地址, 然后通过强制转换改变为其他类型的指针。<br>需要特别注意的是:</p>
+<p>void <em>型指针变量不能进行算数运算, 因为编译器不能识别void </em>类型的长度;<br>void <em>型指针变量也不能使用</em>进行取值操作, 因为编译器不知道要取出的数据具体是什么类型, 想取值必须转换为其它类型。</p>
+<h3 id="3、指针的初始化-赋值"><a href="#3、指针的初始化-赋值" class="headerlink" title="3、指针的初始化/赋值"></a>3、指针的初始化/赋值</h3><p>声明了一个变量, 要给他初始化才有意义。 给指针变量初始化/赋值其实就是让指针指向某个地址。</p>
+<pre><code>int a = 10, c = 20; // 定义并初始化两个整形变量
+
+// 定义一个指针变量p, 并初始化其值为变量a的地址(指向a的地址)
+// 注意, 这个指针变量的变量名是p, 而不是 *p;
+// 指针的类型是int *, 指针所指向的类型是int;
+// 这里注意: 指针的类型(即指针本身的类型)和指针所指向的类型是两个概念。
+int *p = &amp;a;
+printf(&quot;a==%d, *p==%d\n&quot;, a, *p); // 输出: a==10, *p==10
+
+// 允许修改指针变量p所指向的地址(给指针变量重新赋值)
+p = &amp;c;
+printf(&quot;c==%d, *p==%d\n&quot;, c, *p); // 输出: c==20, *p==20
+
+// 允许修改指针变量指向的内存地址的内容
+// 此时p所指向的地址是变量c所在的内存地址, 修改此地址的内容也就是给该地址所存储的变量c重新赋值
+*p = 30; 
+printf(&quot;c==%d, *p==%d\n&quot;, c, *p); // 输出: c==30, *p==30
+
+p = a; // Error: 指针变量只能存储地址, 给指针赋值其他类型的数据显然不对
+*p = &amp;a; // Error: *在操作时表示指向操作, 操作指针指向的那个地址的内容; 也就是说, 若p是一个有效指针, *p即为p所指向的地址的值, 此处*p是int类型, 不能将地址赋值给int
+</code></pre><p>给初学者一点解惑: 声明定义变量时的 <em> 和后面操作变量时的 </em> 以及&amp;如何理解?</p>
+<ul>
+<li>在声明定义指针变量时 : 是指针声明符, 说明定义的这个变量是指针。如int *p;</li>
+<li>在操作指针变量时: 是取值符, 取出指针所指向地址的值。如: *p = 30;</li>
+<li>&amp; 写在变量前面: 是取址符, 任何变量都是放在内存中的, 取址符&amp;就是获得变量在内存中地址。<h4 id="3-1-指针的值"><a href="#3-1-指针的值" class="headerlink" title="3.1 指针的值"></a>3.1 指针的值</h4></li>
+</ul>
+<p>指针的值是指针变量本身所存储的数值, 这个值将被编译器当作一个地址, 而不是一个一般的数值。<br>前面说, 给指针变量初始化/赋值其实就是让指针指向某个地址。那么指针被初始化/赋值之后, 这个指针的值就是一个地址, 我们称为指针所指向的内存地址。实际上, 一个有效指针的值只能是一个地址。<br>在64位机器里, 所有类型的指针的值都是一个64位二进制, 因为64位机器里内存地址全都是64位。</p>
+<h3 id="4、指针和地址"><a href="#4、指针和地址" class="headerlink" title="4、指针和地址"></a>4、指针和地址</h3><p>既然指针的值就是地址, 那直接用地址就行了呗, 要什么指针, 搞得这么麻烦?<br>看过很多文章把他们混为一谈, 认为指针就是地址。其中有这样的说法: 变量的地址称为变量的指针。存放指针的变量, 称为指针变量。<br>我认为这种说法, 很容易让初学者混淆概念, 让人越看越糊涂。我的理解是:<br><strong>变量的地址就是内存地址, 是系统给每个存储单元拟定的编号;存放地址的变量, 称为指针变量。</strong></p>
+<h4 id="4-1-地址是什么"><a href="#4-1-地址是什么" class="headerlink" title="4.1 地址是什么?"></a>4.1 地址是什么?</h4><p>内存中, 以8位二进制(1个字节)作为1个存储单元, 每个存储单元都有一个地址, 是一个整数编号, 一般用十六进制数表示。<br>比如在IDE控制台打印某个变量的地址, 会输出类似0x7fff5fbff6ac这样的十六进制数, 这个十六进制数, 就是这个变量在内存中的地址, 如果这个变量占有多个字节, 那么这个编号就是该变量的首地址(连续内存中最前面的存储单元的编号)<br>我们通过这个地址, 就能找到内存中对应的存储单元。找到了存储单元, 也就能访问到内存中所存储的数据。<br>一个存储单元对应一个字节, 每个字节有8个二进制位, 即能表示的最大的数是11111111(十进制的255), 转换为十六进制是0xFF。<br>反过来讲, 一个存储单元最多能存储8位二进制数(2位十六进制数)。</p>
+<p>一点扩展: 机器语言指令中出现的内存地址, 都是逻辑地址, 需要转换成线性地址, 再经过MMU(CPU中的内存管理单元)转换成物理地址才能够被访问到。</p>
+<h4 id="4-2-指针和地址的关系"><a href="#4-2-指针和地址的关系" class="headerlink" title="4.2 指针和地址的关系"></a>4.2 指针和地址的关系</h4><p>指针是由地址值和指针类型两部分构成的, 指向数据的指针不仅记录该数据的在内存中的存放的地址, 还记录该数据的类型, 即在内存中占用几个字节, 这是地址所不具有的。<br>正因为地址是没有类型的, 所以不能对地址进行算术操作。<br>这些可以从5.2中的例子得到佐证。</p>
+<h3 id="5、指针的算术运算-指针移动"><a href="#5、指针的算术运算-指针移动" class="headerlink" title="5、指针的算术运算(指针移动)"></a>5、指针的算术运算(指针移动)</h3><p>4.2讲到, 地址不能进行算数运算, 而指针可以。<br>指针可以进行四种算数运算: ++、–、+、-, 不过要注意的是必须是整数才行。<br>这种运算的意义和通常的数值的加减运算是不一样的, 指针的算数运算以其所指向的类型所占字节长度为单位, 也就是sizeof(指针所指向的类型)。<br>算数运算之后指针的类型不变, 指针所指向的类型也不变。加N, 就会向高地址移动; 减N, 则向低地址移动, 长度是 N*sizeof(指针所指向的类型)。</p>
+<p>举个栗子:</p>
+<pre><code> int a = 10, c = 20;
+printf(&quot;%p, %p, %p\n&quot;, &amp;a, &amp;c, &amp;c+1); // 输出: 0x7fff5fbff6ec, 0x7fff5fbff6e8, 0x7fff5fbff6ec
+&amp;c = &amp;a; // 是非法的
+
+先说说 &amp;a 是一个指针还是一个地址呢? 
+我的理解: 它是一个指针常量。 原因如下:
+1) IDE中可以看到&amp;a 是有类型的, 其类型是int *。而地址没有类型。
+2) &amp;a可以进行算数运算, 地址不能进行算数运算。
+3) 给&amp;a赋值是非法的, 也就是说不能改变&amp;a的指向, 所以它是一个常量。
+</code></pre><p>关于这个问题, 目前没有找到权威的说法, 暂且认为&amp;a是指针常量, 基本可以解释的通, 如有不同见解, 欢迎讨论。<br>从print输出可以看到, &amp;a与&amp;c+1相等, 都比&amp;c大4, 而sizeof(int)==4;<br>也就是说, a的地址比c的地址高了4个字节, 那为什么a比c的地址高呢?<br>因为栈空间是从高地址往低地址扩展的, 先声明的a, 那a的地址自然比c的地址高, 高出的大小刚好是变量c所占内存空间的大小。如此, &amp;c+1得到的也就是变量a的地址。</p>
+<h4 id="5-1-指针变量之间的算数运算"><a href="#5-1-指针变量之间的算数运算" class="headerlink" title="5.1 指针变量之间的算数运算:"></a>5.1 指针变量之间的算数运算:</h4><p>两个同一类型的指针变量是可以相减的, 他们的意义表示两个指针指向的内存位置之间相隔多少个元素(注意是元素, 并不是字节数), 一般应用在数组元素之间。<br>两个指针不能进行加法运算, 这是非法操作, 因为进行加法后, 得到的结果指向一个不知所向的地方, 而且毫无意义。</p>
+<h4 id="5-2-指针变量之间的比较"><a href="#5-2-指针变量之间的比较" class="headerlink" title="5.2 指针变量之间的比较"></a>5.2 指针变量之间的比较</h4><p>指针可以用关系运算符进行比较, 如 ==、&lt; 和 &gt;。其本质也就是指针变量之间的相减运算。</p>
+<h3 id="6、指针的类型-和-指针所指向的类型"><a href="#6、指针的类型-和-指针所指向的类型" class="headerlink" title="6、指针的类型 和 指针所指向的类型:"></a>6、指针的类型 和 指针所指向的类型:</h3><p>上面提到了一个注意点: 指针的类型和指针所指向的类型是两个概念。这点很关键, 不可混淆。</p>
+<h4 id="6-1-先说说什么是指针的类型"><a href="#6-1-先说说什么是指针的类型" class="headerlink" title="6.1 先说说什么是指针的类型?"></a>6.1 先说说什么是指针的类型?</h4><p>任何变量都有自己的数据类型, 指针变量也有其数据类型, 指针的类型是指针变量本身所具有的数据类型。<br>就如同 int a = 10; 那么变量a的数据类型就是int。可以大致理解为: 用什么声明这个变量, 那么这个变量的类型就是什么。从语法上看, 把指针声明语句里的指针变量名去掉, 剩下的部分就是这个指针的类型。<br>下面列举几个例子:</p>
+<pre><code>1) int *ptr; // 指针的类型是int* (用 int *声明的变量ptr)
+2) char *ptr; // 指针的类型是char*
+3) int **ptr; // 指针的类型是int**  (用 int **声明的变量ptr)
+4) int(*ptr)[3]; // 指针的类型是int(*)[3]
+5) int *(*ptr)[4]; // 指针的类型是int *(*)[4]
+</code></pre><h4 id="6-2-什么是指针指向的类型"><a href="#6-2-什么是指针指向的类型" class="headerlink" title="6.2 什么是指针指向的类型?"></a>6.2 什么是指针指向的类型?</h4><p>我们常说, 指针变量p指向变量xx的地址, 那么变量xx的数据类型, 就是指针变量p所指向的类型。指针所指向的类型决定了编译器将把那块内存区里的数据当做什么来看待。<br>从语法上看, 把指针声明语句中的指针名及其左边的第一个指针声明符*去掉, 剩下的就是指针所指向的类型。<br>还是用上面的例子:</p>
+<pre><code>1) int *ptr; // 指针所指向的类型是int
+2) char *ptr; // 指针所指向的的类型是char
+3) int **ptr; // 指针所指向的的类型是int *
+4) int (*ptr)[3]; // 指针所指向的的类型是int()[3]
+5) int *(*ptr)[4]; // 指针所指向的的类型是int*()[4]
+</code></pre><h3 id="7、指针与数组"><a href="#7、指针与数组" class="headerlink" title="7、指针与数组"></a>7、指针与数组</h3><p>指针可以存放int类型变量的地址, 指向int类型的变量; 同理, 指针也可以指向数组。<br>举个栗子:</p>
+<pre><code>int arr[] = {0, 1, 2, 3, 4, 5};
+int *p;
+p = arr; 
+</code></pre><p>数组名arr是指向 &amp;arr[0] 的指针, 即指向数组首元素的地址。<br>但是arr并不是指针变量, 而是一个指针常量, 它的类型是int [6]。<br>即arr这个指针是个常量, arr指向的数值(arr[0])可以改变, 而arr所保存的地址不能改变。<br>也就是说 arr[0] = 6;是完全合法的, 而给arr赋值, 如: arr = p; 就不合法。</p>
+<p>p是个指针变量, 指向了arr的值, 也就是数组arr的首元素的地址。<br>p和arr都具有指针值, 都可以进行间接访问和下标引用操作:</p>
+<pre><code>printf(&quot;%d--%d--%d--%d\n&quot;, *(arr+1), arr[1], *(p+1), p[1]); // 输出: 1--1--1–1
+</code></pre><p>但p是变量, 我们可以使用p++来遍历数组元素, 这就是p和arr最大的不同:</p>
+<p>for (int i=0; i&lt;6; i++) printf(“%d\n”, *p++);<br>指针牵扯到数组, 还会引申出一系列的问题, 如字符串、二级指针、二维数组、指针数组、数组指针等等, 这里限于篇幅, 暂不讨论, 后面会单独写一篇关于指针和数组的详解。</p>
+<h3 id="8、指针与结构体"><a href="#8、指针与结构体" class="headerlink" title="8、指针与结构体"></a>8、指针与结构体</h3><p>就像数组指针一样, 指向结构体的指针存储了结构体第一个元素的内存地址。结构体的指针必须声明和结构体类型保持一致, 或者声明为void类型。</p>
+<h4 id="8-1-如何定义指向结构体变量的指针"><a href="#8-1-如何定义指向结构体变量的指针" class="headerlink" title="8.1 如何定义指向结构体变量的指针?"></a>8.1 如何定义指向结构体变量的指针?</h4><p>1.拷贝结构体类型 和 结构体变量名称<br>2.在类型和名称中间加上<em><br>  当指针指向结构体之后如何利用指针访问<br>  结构体的成员变量;<br>3.结构体变量名称.属性;<br>4.(</em>结构体指针变量名称).属性;<br>5.使用指向运算符-&gt;, 结构体指针变量名称-&gt;属性;</p>
+<pre><code>举例说明: 
+struct Person { 
+int age;
+char *name;
+double height;
+}; // 定义结构体类型Person
+
+struct Person sp = {26, &quot;xiaoming&quot;, 1.80}; // 定义结构体变量sp
+struct Person *sip = &amp;sp; // 定义指向结构体的指针sip, *sip === sp
+sp.name = &quot;xiaohong&quot;;
+(*sip).name = &quot;xiaomei&quot;; // 运算符.的优先级比*高, 加上()先取值再查找
+sip-&gt;name = &quot;laowang&quot;;
+</code></pre><p>关于结构体这里也暂不做过多讨论。</p>
+<h3 id="9、指针与函数"><a href="#9、指针与函数" class="headerlink" title="9、指针与函数"></a>9、指针与函数</h3><h4 id="9-1-函数指针"><a href="#9-1-函数指针" class="headerlink" title="9.1 函数指针"></a>9.1 函数指针</h4><p>函数也会占用一块存储空间, 所以函数也有自己的地址, 那么指向这块地址的指针变量就是函数指针。<br>函数指针有两个用途: 调用函数、做函数的参数(回调函数)。</p>
+<h5 id="9-1-1-函数指针的声明方式"><a href="#9-1-1-函数指针的声明方式" class="headerlink" title="9.1.1 函数指针的声明方式:"></a>9.1.1 函数指针的声明方式:</h5><p>返回值类型 (* 指针变量名) (形参列表);<br>注: “返回值类型”说明函数的返回类型，“(指针变量名 )”中的括号不能省，括号改变了运算符的优先级。</p>
+<pre><code>// 方法1 直接声明
+void (*p_func)(int, int, float) = NULL;
+
+// 方法2 利用typedef取别名, 再声明
+typedef void (*tp_func)(int, int, float);
+tp_func p_func = NULL;
+</code></pre><h5 id="9-1-2-利用函数指针调用函数"><a href="#9-1-2-利用函数指针调用函数" class="headerlink" title="9.1.2 利用函数指针调用函数"></a>9.1.2 利用函数指针调用函数</h5><pre><code>利用函数指针调用函数实例:
+int max(int x, int y) {
+    return x &gt; y ? x : y;
+}
+
+int main(void) {
+// 定义函数指针p指向函数max的地址
+int (* p)(int, int) = &amp; max; // &amp;可以省略, 函数名就是地址, 可以将它赋值给指向函数的指针
+int a, b, c, d;
+printf(&quot;请输入三个数字:&quot;);
+scanf(&quot;%d %d %d&quot;, &amp; a, &amp; b, &amp; c);
+d = p(p(a, b), c); // 与直接调用函数等价, d = max(max(a, b), c)
+printf(&quot;最大的数字是: %d\n&quot;, d);
+return 0;
+}
+编译执行, 输出结果如下: 请输入三个数字, 假设输入了1 2 3
+则打印输出, 最大的数字是: 3
+</code></pre><h5 id="9-1-3-函数指针与回调函数"><a href="#9-1-3-函数指针与回调函数" class="headerlink" title="9.1.3 函数指针与回调函数"></a>9.1.3 函数指针与回调函数</h5><p>回调函数就是一个通过函数指针调用的函数。如果你把函数的指针作为参数传递给另一个函数, 当这个指针被用来调用其所指向的函数时, 我们就说这是回调函数。<br>回调函数不是由该函数的实现方直接调用, 而是在特定的事件或条件发生时由另外的一方调用的, 用于对该事件或条件进行响应。<br>因为可以把调用者与被调用者分开, 所以调用者不关心谁是被调用者。它只需知道存在一个具有特定原型和限制条件的被调用函数。简而言之, 回调函数就是允许用户把需要调用的方法的指针作为参数传递给一个函数, 以便该函数在处理相似事件的时候可以灵活的使用不同的方法。</p>
+<pre><code>回调函数实例:
+// 函数A, 形参需要传入 int型数组, 数组大小, 函数指针
+void populate_array(int *array, size_t arraySize, int (*getNextValue)(void)) {
+    for (size_t i=0; i&lt;arraySize; i++)
+    array[i] = getNextValue();
+}
+
+// 函数B, 函数指针所指向的函数
+int getNextRandomValue(void) {
+    return rand(); // 获取随机值
+}
+
+int main(void) {
+int myarray[10];
+// 使用函数指针回调
+populate_array(myarray, 10, getNextRandomValue);
+for(int i = 0; i &lt; 10; i++) {
+    printf(&quot;%d&quot;, myarray[i]);
+}
+printf(&quot;\n&quot;);
+return 0;
+</code></pre><p>}</p>
+<h4 id="9-2-指针函数"><a href="#9-2-指针函数" class="headerlink" title="9.2 指针函数"></a>9.2 指针函数</h4><p>还有一个概念叫做指针函数: 即返回值是指针类型的函数, 这篇主要说指针, 也不多赘述</p>
+<pre><code>指针函数的定义格式:
+类型名 *函数名(函数参数列表);
+实例:
+int *pfun(int, int);
+</code></pre><p><em>希望帮助那些对C语言指针有困惑的同学</em></p>
+
+  	
+  
+</div>
+    <footer class="article-footer">
+      <a data-url="http://cjlcloud.top/2019/02/18/细说C指针/" data-id="cjxpul5bm0007tkez1x8t788k" class="article-share-link">Share</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/03/20/Stack/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer posts</strong>
+        <div class="article-nav-title">
+          
+            C++——Stack
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/02/09/Shortcut/" class="article-nav-link">
+        <strong class="article-nav-caption">Olde posts</strong>
+        <div class="article-nav-title">All For U</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  
+  <div class="outer">
+    <ul class="list-inline">
+      <li>&copy; 2019 陈一一</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://zhwangart.github.io" target="_blank" rel="noopener">zhwangart</a></li>
+      <!--
+      <li><a href="/">Cjl</a></li>
+      -->
+    </ul>
+  </div>
+</footer>
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="陈一一"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/28/02/18/%E7%BB%86%E8%AF%B4C%E6%8C%87%E9%92%88/index/" data-id="ck3tym31p0007sgu77jhj1781"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/11/28/11/21/Beautifulsoup%E6%A1%88%E4%BE%8B/index/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            11/21/Beautifulsoup案例/index
+          
+        </div>
+      </a>
+    
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'chaSYi8FMdJBwzIBpxeNjqWC-gzGzoHsz',
+        app_key: 'PqqkLYgPkHvH1BmyQqySWnSK',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2019
+        John Doe
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>

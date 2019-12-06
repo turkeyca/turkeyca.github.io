@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    11/21/Python/index |  Hexo
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  <link rel="stylesheet" href="/css/style.css">  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-11/21/Python/index" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  11/21/Python/index
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/11/28/11/21/Python/index/" class="article-date">
+  <time datetime="2019-11-27T19:54:16.000Z" itemprop="datePublished">2019-11-28</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="baidu-site-verification" content="xBnycxSBL1">
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Python |
+    
+    陈一一</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-Python" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Python
+    </h1>
+  
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/11/21/Python/" class="article-date">
+  <time datetime="2019-11-21T10:40:16.124Z" itemprop="datePublished">2019-11-21</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+  
+  	
+  	
+  	  <p><strong>Python注意事项</strong></p>
+<h2 id="open-函数"><a href="#open-函数" class="headerlink" title="open()函数"></a>open()函数</h2><p>关于open的操作：</p>
+<p>open(路径+文件名，读写模式)</p>
+<h4 id="一般读写模式有："><a href="#一般读写模式有：" class="headerlink" title="一般读写模式有："></a>一般读写模式有：</h4><pre><code>w      以写的方式打开(会覆盖原有的文件)
+
+r      以只读的方式打开
+
+a      以追加的模式打开(在原文件的末尾追加要写入的数据，不覆盖原文件)
+
+b      以二进制文件的方式打开
+</code></pre><p>r+   w+  a+  都是以读写的方式打开</p>
+<pre><code>rb  以二进制读的方式打开
+
+wb  以二进制写的方式打开
+
+ab  以二进制追加的模式打开
+</code></pre><p>rb+  wb+  ab+  以二进制读写的方式打开·</p>
+<h4 id="1-以读取的方式打开file文件："><a href="#1-以读取的方式打开file文件：" class="headerlink" title="1.以读取的方式打开file文件："></a>1.以读取的方式打开file文件：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"path_file"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f1:         <span class="comment"># 以读取的方式打开file文件，并且将文件的所有内容存储到f1变量中   path_file是file文件的文件路径(path)和文件名(file)</span></span><br><span class="line"></span><br><span class="line">f2 = f1.readlines()                             <span class="comment"># 将file文件中的所有行都读取，并且存储到变量f2中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> f2:                                      <span class="comment"># 从file文件中的所有行里，每次提取一行，进行后续的操作</span></span><br><span class="line"></span><br><span class="line">f1.close()                                           <span class="comment"># 关闭file文件</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-以写入的方式打开file文件："><a href="#2-以写入的方式打开file文件：" class="headerlink" title="2.以写入的方式打开file文件："></a>2.以写入的方式打开file文件：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"path_file"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f1:   <span class="comment"># 以写入的方式打开file文件，并将文件存储到f1变量中</span></span><br></pre></td></tr></table></figure>
+<h2 id="csv文件"><a href="#csv文件" class="headerlink" title="csv文件"></a>csv文件</h2><p>python自带了csv模块提供用户对csv文件进行读写操作，要对csv文件进行写操作，首先要创建一个writer对象,参考help(csv.writer)，情况如下</p>
+<h4 id="1-写入列表的数据"><a href="#1-写入列表的数据" class="headerlink" title="1.写入列表的数据"></a>1.写入列表的数据</h4><p>调用writer对象的前提是：需要传入一个文件对象，然后才能在这个文件对象的基础上调用csv的写入方法writerow（写入一行）writerrow（写入多行）。写入数据的代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">headers = [<span class="string">'class'</span>,<span class="string">'name'</span>,<span class="string">'sex'</span>,<span class="string">'height'</span>,<span class="string">'year'</span>]</span><br><span class="line"></span><br><span class="line">rows = [</span><br><span class="line">        [<span class="number">1</span>,<span class="string">'xiaoming'</span>,<span class="string">'male'</span>,<span class="number">168</span>,<span class="number">23</span>],</span><br><span class="line">        [<span class="number">1</span>,<span class="string">'xiaohong'</span>,<span class="string">'female'</span>,<span class="number">162</span>,<span class="number">22</span>],</span><br><span class="line">        [<span class="number">2</span>,<span class="string">'xiaozhang'</span>,<span class="string">'female'</span>,<span class="number">163</span>,<span class="number">21</span>],</span><br><span class="line">        [<span class="number">2</span>,<span class="string">'xiaoli'</span>,<span class="string">'male'</span>,<span class="number">158</span>,<span class="number">21</span>]</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test.csv'</span>,<span class="string">'w'</span>)<span class="keyword">as</span> f:</span><br><span class="line">    f_csv = csv.writer(f)</span><br><span class="line">    f_csv.writerow(headers)</span><br><span class="line">    f_csv.writerows(rows)</span><br></pre></td></tr></table></figure>
+<p>这段代码我首先定义了写入csv文件的表头、每一列的内容，然后打开一个csv文件，将文件对象作为参数传给csv.writer()，最后将表头和每一行的内容写入到csv文件中。<br><a href="https://img-blog.csdn.net/20180812134049903?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdHl1c2hhMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" target="_blank" rel="noopener">执行结果：</a></p>
+<p>注意：如果打开csv文件出现空行的情况，那么需要添加一个参数 newline=”（我使用windows出现了这种情况，使用linux mint没有出现）<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">'test.csv'</span>,<span class="string">'w'</span>,newline=<span class="string">''</span>)<span class="keyword">as</span> f:</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-写入字典序列的数据"><a href="#2-写入字典序列的数据" class="headerlink" title="2.写入字典序列的数据"></a>2.写入字典序列的数据</h4><p>参考help(csv.DictWriter)可知，在写入字典序列类型数据的时候，需要传入两个参数，一个是文件对象——f，一个是字段名称——fieldnames，到时候要写入表头的时候，只需要调用writerheader方法，写入一行字典系列数据调用writerrow方法，并传入相应字典参数，写入多行调用writerows<br>具体代码如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"></span><br><span class="line">headers = [<span class="string">'class'</span>,<span class="string">'name'</span>,<span class="string">'sex'</span>,<span class="string">'height'</span>,<span class="string">'year'</span>]</span><br><span class="line"></span><br><span class="line">rows = [</span><br><span class="line">        &#123;<span class="string">'class'</span>:<span class="number">1</span>,<span class="string">'name'</span>:<span class="string">'xiaoming'</span>,<span class="string">'sex'</span>:<span class="string">'male'</span>,<span class="string">'height'</span>:<span class="number">168</span>,<span class="string">'year'</span>:<span class="number">23</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'class'</span>:<span class="number">1</span>,<span class="string">'name'</span>:<span class="string">'xiaohong'</span>,<span class="string">'sex'</span>:<span class="string">'female'</span>,<span class="string">'height'</span>:<span class="number">162</span>,<span class="string">'year'</span>:<span class="number">22</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'class'</span>:<span class="number">2</span>,<span class="string">'name'</span>:<span class="string">'xiaozhang'</span>,<span class="string">'sex'</span>:<span class="string">'female'</span>,<span class="string">'height'</span>:<span class="number">163</span>,<span class="string">'year'</span>:<span class="number">21</span>&#125;,</span><br><span class="line">        &#123;<span class="string">'class'</span>:<span class="number">2</span>,<span class="string">'name'</span>:<span class="string">'xiaoli'</span>,<span class="string">'sex'</span>:<span class="string">'male'</span>,<span class="string">'height'</span>:<span class="number">158</span>,<span class="string">'year'</span>:<span class="number">21</span>&#125;,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test2.csv'</span>,<span class="string">'w'</span>,newline=<span class="string">''</span>)<span class="keyword">as</span> f:</span><br><span class="line">    f_csv = csv.DictWriter(f,headers)</span><br><span class="line">    f_csv.writeheader()</span><br><span class="line">    f_csv.writerows(rows)</span><br></pre></td></tr></table></figure>
+<p><a href="https://img-blog.csdn.net/20180812141222488?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdHl1c2hhMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" target="_blank" rel="noopener">运行结果：</a></p>
+<h4 id="3-csv文件的读"><a href="#3-csv文件的读" class="headerlink" title="3.csv文件的读"></a>3.csv文件的读</h4><p>读取csv时需要使用reader，并传如一个文件对象，而且reader返回的是一个可迭代的对象，需要使用for循环遍历，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test.csv'</span>)<span class="keyword">as</span> f:</span><br><span class="line">    f_csv = csv.reader(f)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> f_csv:</span><br><span class="line">        print(row)</span><br></pre></td></tr></table></figure>
+<p><a href="https://img-blog.csdn.net/20180812141910841?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2thdHl1c2hhMQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" target="_blank" rel="noopener">运行结果：</a></p>
+<p>在上面，row是一个列表，如果想要查看固定的某列，则需要加上下标，例如我想要查看name，那么只需要改为row[1]<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'test.csv'</span>)<span class="keyword">as</span> f:</span><br><span class="line">    f_csv = csv.reader(f)</span><br><span class="line">    <span class="keyword">for</span> row <span class="keyword">in</span> f_csv:</span><br><span class="line">        print(row[<span class="number">1</span>])</span><br></pre></td></tr></table></figure></p>
+
+  	
+  
+</div>
+    <footer class="article-footer">
+      <a data-url="http://cjlcloud.top/2019/11/21/Python/" data-id="ck38lj2nc0000v0ez292tuaxb" class="article-share-link">Share</a>
+      
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+      <a href="/2019/11/21/Beautifulsoup案例/" class="article-nav-link">
+        <strong class="article-nav-caption">Newer posts</strong>
+        <div class="article-nav-title">
+          
+            (no title)
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/05/26/两数相加/" class="article-nav-link">
+        <strong class="article-nav-caption">Olde posts</strong>
+        <div class="article-nav-title">两数相加</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  
+  <div class="outer">
+    <ul class="list-inline">
+      <li>&copy; 2019 陈一一</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://zhwangart.github.io" target="_blank" rel="noopener">zhwangart</a></li>
+      <!--
+      <li><a href="/">Cjl</a></li>
+      -->
+    </ul>
+  </div>
+</footer>
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="陈一一"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Search">
+        <i class="fe fe-search"></i>
+        Search
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+  <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/11/28/11/21/Python/index/" data-id="ck3tym31j0003sgu74lr46ql0"
+        class="article-share-link">分享</a>
+      
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2019/11/28/05/26/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/index/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            05/26/两数相加/index
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2019/11/28/03/20/Linearlist/index/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">03/20/Linearlist/index</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'chaSYi8FMdJBwzIBpxeNjqWC-gzGzoHsz',
+        app_key: 'PqqkLYgPkHvH1BmyQqySWnSK',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2019
+        John Doe
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+  
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="Hexo"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/%E6%97%85%E8%A1%8C/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>
