@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    SparkSession的使用 |  陈一一
+    领域API编程 |  陈一一
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -24,7 +24,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-sparkstreaming" class="article article-type-post" itemscope
+  <article id="post-matplotlib" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -32,7 +32,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  SparkSession的使用
+  领域API编程
 </h1>
   
 
@@ -41,8 +41,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/03/03/sparkstreaming/" class="article-date">
-  <time datetime="2020-03-03T14:41:04.991Z" itemprop="datePublished">2020-03-03</time>
+      <a href="/2020/03/03/matplotlib/" class="article-date">
+  <time datetime="2020-03-03T15:06:37.522Z" itemprop="datePublished">2020-03-03</time>
 </a>
       
     </div>
@@ -63,8 +63,8 @@
       
 
       
-      <p><strong>Sparkstreaming</strong><br>基础的sparkstreaming使用。实时监控hdfs文件目录，如有新增，则对新增文件进行wordcount操作.<a id="more"></a></p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.zkpk.lab</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.<span class="type">SparkConf</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.spark.streaming.&#123;<span class="type">Seconds</span>, <span class="type">StreamingContext</span>&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">tcp_streaming</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">val</span> conf = <span class="keyword">new</span> <span class="type">SparkConf</span>().setMaster(<span class="string">"local[2]"</span>).setAppName(<span class="string">"tcp_streaming"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">val</span> ssc = <span class="keyword">new</span> <span class="type">StreamingContext</span>(conf, <span class="type">Seconds</span>(<span class="number">5</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">val</span> textStream = ssc.socketTextStream(<span class="string">"master"</span>, <span class="number">9999</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">val</span> words = textStream.flatMap(_.split(<span class="string">" "</span>))</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">val</span> wordPairs = words.map((_, <span class="number">1</span>)).reduceByKey(_ + _)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    wordPairs.print()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    ssc.start()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    ssc.awaitTermination()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">  &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+      <p><strong>matplotlib柱状图</strong><br><img src="http://q57m6mfsf.bkt.clouddn.com/TrainingSet.png" alt="Histogram">    </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#输入想要存储图像的路径</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">os.chdir(<span class="string">'D:'</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#改变绘图风格</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">sns.set(color_codes=<span class="literal">True</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">cell = [<span class="string">'MonDay'</span>,<span class="string">'Tuerday'</span>,<span class="string">'Wednesday'</span>,<span class="string">'Thursday'</span>, <span class="string">'Friday'</span>, <span class="string">'Saturday'</span>,<span class="string">'Sunday'</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">pvalue = [<span class="number">28.21</span>,<span class="number">29.67</span>,<span class="number">32.26</span>,<span class="number">37.15</span>,<span class="number">34.82</span>,<span class="number">28.16</span>,<span class="number">30.37</span>]</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">width = <span class="number">0.60</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">index = np.arange(len(cell)) </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">p1 = np.arange(<span class="number">0</span>,len(cell),<span class="number">0.01</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">q1 = np.arange(<span class="number">0</span>,len(cell),<span class="number">0.01</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">figsize = (<span class="number">10</span>,<span class="number">8</span>)<span class="comment">#调整绘制图片的比例</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#若是不想显示直线，可以直接将上面两行注释掉</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">plt.bar(index, pvalue, width,color=<span class="string">"#87CEFA"</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#plt.xlabel('cell type') #x轴</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">plt.ylabel(<span class="string">'rate(%)'</span>) <span class="comment">#y轴</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">plt.title(<span class="string">'Result of Rate of Auctions'</span>) <span class="comment">#图像的名称</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">plt.xticks(index, cell,fontsize=<span class="number">10</span>) <span class="comment">#将横坐标用cell替换,fontsize用来调整字体的大小</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">plt.legend() <span class="comment">#显示label</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">plt.savefig(<span class="string">'test.png'</span>,dpi = <span class="number">400</span>) <span class="comment">#保存图像，dpi可以调整图像的像素大小</span></span></pre></td></tr></table></figure>
       
       <!-- 打赏 -->
       
@@ -102,10 +102,10 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="https://cjlcloud.top/2020/03/03/sparkstreaming/" data-id="ck7c07g840002pgu77tpmgnqc"
+      <a data-url="https://cjlcloud.top/2020/03/03/matplotlib/" data-id="ck7c2ih810000tgu7h0gi4xra"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spark/" rel="tag">spark</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/matplotlib/" rel="tag">matplotlib</a></li></ul>
 
     </footer>
 
@@ -115,19 +115,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/03/03/matplotlib/" class="article-nav-link">
+      <a href="/2020/03/03/sparksession%20-%20%E5%89%AF%E6%9C%AC/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            领域API编程
+            Spark SQL中的RDD与DataFrame转换
           
         </div>
       </a>
     
     
-      <a href="/2020/03/03/sparksql/" class="article-nav-link">
+      <a href="/2020/03/03/sparkstreaming/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">领域API编程</div>
+        <div class="article-nav-title">SparkSession的使用</div>
       </a>
     
   </nav>
